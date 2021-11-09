@@ -9,14 +9,14 @@ const copyDir = async () => {
         const originFold = await fs.readdir(foldOrigin);
         const copyFold = await fs.readdir(foldSecond);
 
+        for (const file of copyFold) {
+            await fs.rm(path.join(foldSecond, file));
+        }
+
         for (const file of originFold) {
             const origFold = path.join(foldOrigin, file);
             const copyFile = path.join(foldSecond, file);
             await fs.copyFile(origFold, copyFile);
-        }
-
-        for (const file of copyFold) {
-            await fs.rm(path.join(foldSecond, file));
         }
     } catch (err) {console.log(err)};
 }
